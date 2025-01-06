@@ -1,8 +1,11 @@
-QT       += core gui
+QT += core gui widgets sql
 
+INCLUDEPATH += "C:/Program Files/MySQL/MySQL Server 8.0/include"
+LIBS += -L"C:/Program Files/MySQL/MySQL Server 8.0/lib" -lmysql
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
+
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.

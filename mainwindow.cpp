@@ -1,7 +1,29 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QtSql/QSqlDatabase>
+#include <QDebug>
+#include <QSqlError>
+#include <QSqlQuery>
 
 #include <QMessageBox> // For displaying score
+
+void connectToDatabase() {
+    // Create a database connection
+    QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
+    db.setHostName("localhost");
+    db.setPort(3306);
+    db.setDatabaseName("quiz_app"); // Replace with your database name
+    db.setUserName("root");         // Replace with your MySQL username
+    db.setPassword("khatri123");        // Replace with your MySQL password
+
+    // Open the connection
+    if (!db.open()) {
+        qDebug() << "Database connection failed:" << db.lastError().text();
+    } else {
+        qDebug() << "Database connection successful!";
+    }
+}
+
 
 // Questions and options
 struct Question {
@@ -23,7 +45,7 @@ MainWindow::MainWindow(QWidget *parent)
     , score(0)
 {
     ui->setupUi(this);
-
+    connectToDatabase();
     // Group radio buttons for exclusive selection
     buttonGroup = new QButtonGroup(this);
     buttonGroup->addButton(ui->option1, 0);
